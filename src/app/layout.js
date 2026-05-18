@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/sections/Navbar";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import Footer from "@/components/sections/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
             <Navbar />
 
             {children}
+            <Footer/>
           </ThemeProvider>
         </main>
       </body>

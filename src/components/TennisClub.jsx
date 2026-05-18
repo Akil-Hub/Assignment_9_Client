@@ -11,16 +11,16 @@ export default function TennisClub() {
 <div className="grid grid-cols-2 gap-3 h-[500px]">
   {/* Left - one big image */}
   <div className="relative rounded-lg overflow-hidden">
-    <Image fill src="/tennis/tennis1.png" alt="tennis" className="object-cover rounded-lg" />
+    <Image fill src="/tennis/tennis1.png" alt="tennis" className="object-cover rounded-lg  hover:scale-105 transition-all duration-500" />
   </div>
 
   {/* Right - two small images stacked */}
   <div className="flex flex-col gap-3">
     <div className="relative flex-1 rounded-lg overflow-hidden">
-      <Image fill src="/tennis/tennis2.png" alt="tennis" className="object-cover rounded-lg" />
+      <Image fill src="/tennis/tennis2.png" alt="tennis" className="object-cover rounded-lg  hover:scale-105 transition-all duration-500" />
     </div>
     <div className="relative flex-1 rounded-lg overflow-hidden">
-      <Image fill src="/tennis/tennis3.png" alt="tennis" className="object-cover rounded-lg" />
+      <Image fill src="/tennis/tennis3.png" alt="tennis" className="object-cover rounded-lg  hover:scale-105 transition-all duration-500" />
     </div>
   </div>
 </div>
