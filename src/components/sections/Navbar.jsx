@@ -1,4 +1,5 @@
 "use client";
+import NavLinks from "@/components/common/NabLinks";
 import { ThemeToggler } from "@/components/common/ThemeToggler";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -9,51 +10,37 @@ import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
-      <header className="flex h-16 items-center justify-between px-6">
-        <div className="flex items-center gap-4">
-          <div>Logo</div>
-        </div>
-        <ul className="hidden items-center gap-4 md:flex">
-          <li>
-            <Link href="#">Features</Link>
-          </li>
-          <li>
-            <Link href="#">Pricing</Link>
-          </li>
-        </ul>
-       <div className="rightNav">
-           <ThemeToggler />
+    <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/10 backdrop-blur-lg ">
+      <nav className=" wrapper">
+        <header className="flex h-14 items-center justify-between px-6 font-semibold ">
+          <div className="flex items-center gap-4">
+            <div className="text-2xl font-bold italic">
+              Sport<span className="text-green-500 ">Nest</span>
+            </div>
+          </div>
+          <NavLinks className={"hidden md:flex"} />
 
-        <Button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          variant="ghost"
-          className={"md:hidden"}
-        >
-          {isMenuOpen ? <X /> : <FaBars />}
-        </Button>
-       </div>
-      </header>
+          <div className="rightNav">
+            <ThemeToggler className={"hidden md:flex text-white]:"} />
 
-      {/* mobile menu items */}
-      {isMenuOpen && (
-        <div className="border-t border-separator md:hidden">
-          <ul className="flex flex-col gap-2 p-4">
-            <li>
-              <Link href="#" className="block py-2">
-                Features
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2">
-                Pricing
-              </Link>
-            </li>
-            <ThemeToggler />
-          </ul>
-        </div>
-      )}
-    </nav>
+            <Button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              variant="ghost"
+              className={"md:hidden"}
+            >
+              {isMenuOpen ? <X /> : <FaBars />}
+            </Button>
+          </div>
+        </header>
+
+        {/* mobile menu items */}
+        {isMenuOpen && (
+          <div className="border-t border-separator md:hidden  py-5">
+            <NavLinks isMenuOpen={isMenuOpen} />
+          </div>
+        )}
+      </nav>
+    </section>
   );
 };
 

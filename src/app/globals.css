@@ -130,3 +130,9 @@
     @apply font-sans;
   }
 }
+
+@layer components{
+  .wrapper{
+    @apply max-w-330 mx-auto px-3 md:px-4 lg:px-6 py-3
+  }
+}
