@@ -20,8 +20,20 @@ const Navbar = () => {
           </div>
           <NavLinks className={"hidden md:flex"} />
 
-          <div className="rightNav">
+          <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />
+
+
+        <Button>
+    <Link href={'/signIn'}>Login</Link>
+
+</Button>
+  
+<Button>
+  <Link href={'/signUp'}>Sign Up</Link>
+</Button>
+
+
 
             <Button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

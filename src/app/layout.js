@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/sections/Navbar";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Footer from "@/components/sections/Footer";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <main>
+          <Toaster/>
           {" "}
           <ThemeProvider
             attribute="class"

@@ -59,7 +59,7 @@ export default function FacilityCard({ facility }) {
     const popularityPct = Math.min(100, Math.round((booking_count / 200) * 100));
 
     return (
-       <Link href={`/allFacilities/${_id}`}> <Card className="w-full max-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <Link href={`/allFacilities/${_id}`}> <Card className="w-full max-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
             {/* ── Hero image ── */}
             <div className="relative h-44 bg-gradient-to-br from-emerald-900 via-emerald-700 to-teal-400 overflow-hidden flex items-center justify-center">
                 {image && (
@@ -150,18 +150,19 @@ export default function FacilityCard({ facility }) {
                         Available slots — tap to select
                     </p>
                     <div className="flex flex-wrap gap-1.5">
-                        {available_slots.map((slot) => (
-                            <button
-                                key={slot}
-                                onClick={() => toggleSlot(slot)}
-                                className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${selectedSlots.includes(slot)
-                                        ? "bg-emerald-700 text-white border-emerald-700"
-                                        : "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
-                                    }`}
-                            >
-                                {slot}
-                            </button>
-                        ))}
+                        {Array.isArray(available_slots) &&
+                            available_slots.map((slot) => (
+                                <button
+                                    key={slot}
+                                    onClick={() => toggleSlot(slot)}
+                                    className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${selectedSlots.includes(slot)
+                                            ? "bg-emerald-700 text-white border-emerald-700"
+                                            : "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
+                                        }`}
+                                >
+                                    {slot}
+                                </button>
+                            ))}
                     </div>
                 </div>
 
