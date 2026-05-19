@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Afacad_Flux } from "next/font/google";
 import { RemoveFacilityDialog } from "@/components/common/RemoveFacilityDialog";
+import { UpdateForm } from "@/components/common/UpdateForm";
 
 const SPORT_ICONS = {
   Football: "⚽",
@@ -429,6 +430,15 @@ export default function FacilityDetails({ facility }) {
         session?.user?.email === owner_email  &&    <RemoveFacilityDialog
         id={_id}
         facilityName={facility_name}
+          
+
+          
+          />
+           
+       }
+       {
+        session?.user?.email === owner_email  &&    <UpdateForm
+       facility={facility}
           
 
           

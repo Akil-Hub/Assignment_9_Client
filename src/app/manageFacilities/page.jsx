@@ -20,13 +20,20 @@ const {id} = session?.user
   console.log(facilities)
 
   const myFacilities = facilities.filter(facility=> facility.ownerId === id)
-  console.log(myFacilities)
+  
+  console.log('important facility',myFacilities[0]._id)
+
+
+  
 
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-10">
       <div className="wrapper max-w-5xl mx-auto mt-20">
 
-        {/* Heading */}
+    {
+      myFacilities.map(facility=> <section key={facility._id}>
+          <Link href={`/manageFacilities/${facility._id}`}>
+          {/* Heading */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">
             My Facilities
@@ -66,7 +73,7 @@ const {id} = session?.user
               <div className="flex gap-2">
 
                 {/* Update Button */}
-                <UpdateForm/>
+               <Button>See Details</Button>
 
                 {/* Remove Button */}
                 <RemoveFacilityDialog
@@ -80,6 +87,9 @@ const {id} = session?.user
             </div>
           ))}
         </div>
+      </Link>
+      </section>)
+    }
 
       </div>
     </div>
