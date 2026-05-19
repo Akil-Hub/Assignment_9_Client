@@ -9,17 +9,10 @@ import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
-
-
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {
-    data: session,
-    isPending, //loading state
-    error, //error object
-    refetch //refetch the session
-  } = authClient.useSession()
 
+  const { data: session,  } = authClient.useSession();
+  console.log(session?.user?.name);
 
   return (
     <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/10 backdrop-blur-lg ">
@@ -35,9 +28,7 @@ const Navbar = () => {
           <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />
 
-            {isPending ? (
-              <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
-            ) : session ? (
+            {session ? (
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium hidden md:block">
                   {session.user.name}
@@ -48,7 +39,7 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Button >
+                <Button>
                   <Link href="/signIn">Login</Link>
                 </Button>
                 <Button>
@@ -56,8 +47,6 @@ const Navbar = () => {
                 </Button>
               </div>
             )}
-
-
 
             <Button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
