@@ -18,13 +18,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 
 export function DeleteBookingBtn({ id, facilityName }) {
+
+
   const router = useRouter();
 
   const handleDelete = async () => {
+    // getting the token
+    const { data: tokenData, error } = await authClient.token()
+    if (error) {
+      console.log(error)
+    }
+    const token = tokenData.token
     const res = await fetch(`http://localhost:5000/myBookings/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`
+
+      }
     });
     const data = await res.json();
     if (data) {
@@ -43,7 +56,7 @@ export function DeleteBookingBtn({ id, facilityName }) {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete {facilityName}
-          your facility from booking list.
+            your facility from booking list.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

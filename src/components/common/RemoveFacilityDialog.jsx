@@ -18,16 +18,25 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { FaTrash } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
-export function RemoveFacilityDialog({ id, facilityName }) {
+export function RemoveFacilityDialog({ id, facilityName ,className}) {
   const router = useRouter();
 
 
 
 
   const handleRemoveFacility = async () => {
+       const { data: tokenData, error } = await authClient.token()
+        if (error) {
+          console.log(error)
+        }
+        const token = tokenData.token
     const res = await fetch(`http://localhost:5000/allFacilities/${id}`, {
       method: "DELETE",
+      headers:{
+        authorization:`Bearer ${token}`
+      }
     });
     const data = await res.json();
     if (data) {
@@ -39,7 +48,7 @@ export function RemoveFacilityDialog({ id, facilityName }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="w-full h-[60px] mt-5 bg-red-700 text-white font-bold text-lg flex items-center justify-center gap-2 rounded-md" ><FaTrash/> Remove Facility</Button>
+        <Button className={`w-full h-[60px] mt-5 bg-red-700 text-white font-bold text-lg flex items-center justify-center gap-2 rounded-md ${className}`} ><FaTrash/> Remove Facility</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

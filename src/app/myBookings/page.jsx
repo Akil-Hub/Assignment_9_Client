@@ -3,10 +3,31 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, MapPin, Trash2 } from "lucide-react";
 import DeleteBookingBtn from "@/components/common/DeleteBookingBtn";
+import { authClient } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const MyBookingsPage = async () => {
-  const res = await fetch("http://localhost:5000/myBookings", {
-    cache: "no-store",
+
+// const { data, error } = await authClient.token()
+// if (error) {
+//   console.log(error)
+// }
+// if (data) {
+//   const jwtToken = data.token
+// console.log('token is ',jwtToken)
+ 
+// }
+
+const {token} = await auth.api.getToken({
+  headers: await headers()
+})
+
+console.log(token)
+  const res = await fetch("http://localhost:5000/myBookings",{
+    headers:{
+      authorization: `Bearer ${token}`
+    }
   });
 
   const bookingList = await res.json();

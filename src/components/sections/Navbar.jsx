@@ -6,14 +6,30 @@ import { authClient } from "@/lib/auth-client";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { data: session  } = authClient.useSession();
   console.log(session)
+
+  const handleSignOut  = async (params) => {
+    await authClient.signOut({
+  fetchOptions: {
+    onSuccess: () => {
+      router.push("/"); 
+      router.refresh()
+      toast.success('Log out successfull.')
+    },
+  },
+});
+    
+  };
 
   return (
 
@@ -36,7 +52,7 @@ const Navbar = () => {
                 <span className="text-sm font-medium hidden md:block">
                   {session.user.name}
                 </span>
-                <Button variant="outline" onClick={() => authClient.signOut()}>
+                <Button variant="outline" onClick={handleSignOut}>
                   Logout
                 </Button>
               </div>

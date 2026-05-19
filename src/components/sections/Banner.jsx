@@ -4,11 +4,14 @@ import Fade from "embla-carousel-fade";
 import { useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Banner() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 60 }, [
     Fade(),
   ]);
+  const router = useRouter()
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -27,8 +30,11 @@ export default function Banner() {
           Your Game, Your Court
         </h1>
         <p className="mt-4 text-lg md:text-xl text-white/80 max-w-xl drop-shadow">
+
           Book, manage, and enjoy top-tier sports facilities — all in one place.
         </p>
+
+        <Button onClick={()=>router.push('/allFacilities')} size="lg" className={'mt-5 w-75 h-14 text-2xl active:scale-90 transition-all duration-300 rounded-xl!'}>Explore Facilities</Button>
       </div>
 
       <button

@@ -19,10 +19,12 @@ import { authClient } from "@/lib/auth-client";
 import MainForm from "@/components/common/MainForm";
 
 export function AddFacilityPage() {
-    const { data: session  } = authClient.useSession();
-  
+  const { data: session } = authClient.useSession();
+
+
   const router = useRouter()
   const onSubmit = async (e) => {
+
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -31,9 +33,16 @@ export function AddFacilityPage() {
     const facilityData = Object.fromEntries(formData.entries())
     const facilityDataWithOwner = {
       ...facilityData,
-      ownerId:session?.user?.id
+      ownerId: session?.user?.id
     }
 
+
+    // getting the token
+    const { data: tokenData, error } = await authClient.token()
+    if (error) {
+      console.log(error)
+    }
+    const token = tokenData.token
 
     // send the post req to the api for saving the faciliteis
 
@@ -41,7 +50,9 @@ export function AddFacilityPage() {
       {
         method: "POST",
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          authorization: `Bearer ${token}`
+
         },
         body: JSON.stringify(facilityDataWithOwner)
       }
@@ -72,7 +83,7 @@ export function AddFacilityPage() {
           Create and publish a new sports facility
         </p>
 
-        <MainForm onSubmit={onSubmit} inputClass={inputClass}/>
+        <MainForm onSubmit={onSubmit} inputClass={inputClass} />
       </div>
     </section>
   );

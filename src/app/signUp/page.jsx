@@ -12,6 +12,7 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { redirect, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const RegisterPage = () => {
   const router = useRouter()
@@ -32,12 +33,14 @@ const RegisterPage = () => {
 
     if (error) {
       console.log(error);
+      toast.error('Registration is failed.')
+      return
     }
-    if (data) {
-      alert("Register successful");
-      router.push('/signIn')
-    }
-   
+
+    toast.success("Register successful");
+    router.push('/signIn')
+
+
 
   };
   return (
