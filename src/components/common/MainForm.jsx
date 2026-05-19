@@ -18,7 +18,7 @@ const SLOT_OPTIONS = [
   "10AM-12PM",
   "2PM-4PM",
 ];
-const MainForm = ({onSubmit,inputClass}) => {
+const MainForm = ({onSubmit,inputClass,ownerEmail}) => {
   return (
     <div>
         
@@ -107,11 +107,13 @@ const MainForm = ({onSubmit,inputClass}) => {
           </TextField>
 
           {/* Owner Email */}
-          <TextField required name="owner_email" type="email">
+          <TextField required name="owner_email" type="email" 
+          
+          value={ownerEmail}>
             <Label className="text-gray-800 dark:text-gray-200">
               Owner Email
             </Label>
-            <Input className={inputClass} placeholder="elitearena@sportshub.com" />
+            <Input className={inputClass} placeholder="Enter your sign up email" />
             <FieldError />
           </TextField>
 

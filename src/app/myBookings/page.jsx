@@ -6,7 +6,7 @@ import DeleteBookingBtn from "@/components/common/DeleteBookingBtn";
 import { authClient } from "@/lib/auth-client";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
+const demoImage = '/badminton2.jpg'
 const MyBookingsPage = async () => {
 
 // const { data, error } = await authClient.token()
@@ -61,7 +61,7 @@ console.log(token)
               {/* Image */}
               <div className="relative w-full md:w-56 h-40">
                 <Image
-                  src={booking.imageUrl}
+                  src={booking.imageUrl?.trim() || demoImage}
                   alt={booking.facility_name}
                   fill
                   className="object-cover"

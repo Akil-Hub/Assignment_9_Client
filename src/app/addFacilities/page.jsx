@@ -1,18 +1,7 @@
 "use client";
 
 import React from "react";
-import { Check } from "@gravity-ui/icons";
 
-import {
-  Button,
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextArea,
-  TextField,
-} from "@heroui/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -20,6 +9,7 @@ import MainForm from "@/components/common/MainForm";
 
 export function AddFacilityPage() {
   const { data: session } = authClient.useSession();
+  const ownerEmail = session?.user?.email
 
 
   const router = useRouter()
@@ -83,7 +73,7 @@ export function AddFacilityPage() {
           Create and publish a new sports facility
         </p>
 
-        <MainForm onSubmit={onSubmit} inputClass={inputClass} />
+        <MainForm onSubmit={onSubmit} inputClass={inputClass} ownerEmail={ownerEmail}/>
       </div>
     </section>
   );
