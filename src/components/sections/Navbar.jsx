@@ -13,12 +13,12 @@ const Navbar = () => {
 
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
- const { 
-        data: session, 
-        isPending, //loading state
-        error, //error object
-        refetch //refetch the session
-    } = authClient.useSession() 
+  const {
+    data: session,
+    isPending, //loading state
+    error, //error object
+    refetch //refetch the session
+  } = authClient.useSession()
 
 
   return (
@@ -35,27 +35,27 @@ const Navbar = () => {
           <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />
 
-{isPending ? (
-    <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
-) : session ? (
-    <div className="flex items-center gap-2">
-        <span className="text-sm font-medium hidden md:block">
-            {session.user.name}
-        </span>
-        <Button variant="outline" onClick={() => authClient.signOut()}>
-            Logout
-        </Button>
-    </div>
-) : (
-    <div className="flex items-center gap-2">
-        <Button >
-            <Link href="/signIn">Login</Link>
-        </Button>
-        <Button>
-            <Link href="/signUp">Sign Up</Link>
-        </Button>
-    </div>
-)}
+            {isPending ? (
+              <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+            ) : session ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium hidden md:block">
+                  {session.user.name}
+                </span>
+                <Button variant="outline" onClick={() => authClient.signOut()}>
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Button >
+                  <Link href="/signIn">Login</Link>
+                </Button>
+                <Button>
+                  <Link href="/signUp">Sign Up</Link>
+                </Button>
+              </div>
+            )}
 
 
 
