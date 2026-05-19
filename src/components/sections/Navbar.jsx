@@ -2,13 +2,25 @@
 import NavLinks from "@/components/common/NabLinks";
 import { ThemeToggler } from "@/components/common/ThemeToggler";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
+
+
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+ const { 
+        data: session, 
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = authClient.useSession() 
+
+
   return (
     <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/10 backdrop-blur-lg ">
       <nav className=" wrapper">
@@ -23,15 +35,27 @@ const Navbar = () => {
           <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />
 
-
+{isPending ? (
+    <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+) : session ? (
+    <div className="flex items-center gap-2">
+        <span className="text-sm font-medium hidden md:block">
+            {session.user.name}
+        </span>
+        <Button variant="outline" onClick={() => authClient.signOut()}>
+            Logout
+        </Button>
+    </div>
+) : (
+    <div className="flex items-center gap-2">
+        <Button >
+            <Link href="/signIn">Login</Link>
+        </Button>
         <Button>
-    <Link href={'/signIn'}>Login</Link>
-
-</Button>
-  
-<Button>
-  <Link href={'/signUp'}>Sign Up</Link>
-</Button>
+            <Link href="/signUp">Sign Up</Link>
+        </Button>
+    </div>
+)}
 
 
 
