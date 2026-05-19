@@ -4,6 +4,7 @@ import { ThemeToggler } from "@/components/common/ThemeToggler";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -11,10 +12,12 @@ import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data: session,  } = authClient.useSession();
-  console.log(session?.user?.name);
+  const { data: session  } = authClient.useSession();
+  console.log(session)
+  console.log(session?.user?.imageURL);
 
   return (
+
     <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/10 backdrop-blur-lg ">
       <nav className=" wrapper">
         <header className="flex h-14 items-center justify-between px-6 font-semibold ">
@@ -30,6 +33,7 @@ const Navbar = () => {
 
             {session ? (
               <div className="flex items-center gap-2">
+                <Image src={session?.user?.image} height={50} width={50} alt="profile image" className="rounded-full"/>
                 <span className="text-sm font-medium hidden md:block">
                   {session.user.name}
                 </span>

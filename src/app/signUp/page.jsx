@@ -11,9 +11,10 @@ import {
   TextField,
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const RegisterPage = () => {
+  const router = useRouter()
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,8 +35,10 @@ const RegisterPage = () => {
     }
     if (data) {
       alert("Register successful");
-      redirect("/signIn");
+      router.push('/signIn')
     }
+   
+
   };
   return (
     <div className="wrapper py-20">
@@ -53,7 +56,7 @@ const RegisterPage = () => {
           <Input placeholder="john@example.com" />
           <FieldError />
         </TextField>
-        <TextField isRequired name="imageURL" type="text">
+        <TextField isRequired name="imageURL" type="url">
           <Label>Image Url : </Label>
           <Input placeholder="Enter your image url" />
           <FieldError />
