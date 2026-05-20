@@ -4,7 +4,6 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default DeleteBookingBtn;
 
 import {
   AlertDialog,
@@ -18,37 +17,42 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { FaTrash } from "react-icons/fa";
 
 export function RemoveFacilityDialog({ id, facilityName }) {
   const router = useRouter();
 
-  const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/myBookings/${id}`, {
+
+
+
+  const handleRemoveFacility = async () => {
+    const res = await fetch(`http://localhost:5000/allFacilities/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
     if (data) {
-      router.refresh();
-      toast.success("Booked facility is canceled.");
+      router.push('/allFacilities');
+      toast.success("Facility removed successfully.");
     }
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Cancel</Button>
+        <Button className="w-full h-[60px] mt-5 bg-red-700 text-white font-bold text-lg flex items-center justify-center gap-2 rounded-md" ><FaTrash/> Remove Facility</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete {facilityName}
-          your facility from booking list.
+            your facility from All Facility list.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} className="bg-red-500 text-white">
+          <AlertDialogAction onClick={handleRemoveFacility}
+            className="bg-red-500 text-white">
             Confirm Cancellation
           </AlertDialogAction>
         </AlertDialogFooter>

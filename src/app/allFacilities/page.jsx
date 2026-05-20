@@ -5,6 +5,7 @@ const allFacilities = async () => {
 
   const res = await fetch('http://localhost:5000/allFacilities')
   const facilities = await res.json()
+  console.log(facilities)
 
 
   return (

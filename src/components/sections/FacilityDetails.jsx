@@ -19,6 +19,8 @@ import { DateField, Label } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Afacad_Flux } from "next/font/google";
+import { RemoveFacilityDialog } from "@/components/common/RemoveFacilityDialog";
 
 const SPORT_ICONS = {
   Football: "⚽",
@@ -72,6 +74,10 @@ export default function FacilityDetails({ facility }) {
   const popularityPct = Math.min(100, Math.round((booking_count / 200) * 100));
   const totalCost = selectedSlots.length * price_per_hour;
 
+ 
+
+
+  // function for booking
   const handleBook = async () => {
     console.log('handle book button is clicked')
     const bookingData = {
@@ -90,6 +96,7 @@ export default function FacilityDetails({ facility }) {
       bookingDate: new Date().toLocaleString(),
       selectedSlots
     };
+    console.log(imageUrl)
 
     const res = await fetch("http://localhost:5000/myBookings", {
       method: "POST",
@@ -270,7 +277,7 @@ export default function FacilityDetails({ facility }) {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-sm uppercase tracking-wider text-muted-foreground font-semibold">
-                Available time slots ({available_slots.length} open)
+                Available time slots ({slots?.length || 0} open)
               </CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -418,18 +425,19 @@ export default function FacilityDetails({ facility }) {
               ? "Confirm booking →"
               : "Select a slot to book"}
           </Button>
-          <Button
-            className="w-full bg-emerald-700 h-20 mt-5 text-2xl hover:bg-emerald-800 text-white font-bold"
-            disabled={!bookingDate}
-            onClick={handleBook}
-          >
-            <CalendarCheck size={16} className="mr-2" />
-            {selectedSlots.length && bookingDate
-              ? "Confirm booking →"
-              : "Select a slot to book"}
-          </Button>
+       {
+        session?.user?.email === owner_email  &&    <RemoveFacilityDialog
+        id={_id}
+        facilityName={facility_name}
+          
+
+          
+          />
+           
+       }
         </div>
       </div>
     </div>
   );
 }
+

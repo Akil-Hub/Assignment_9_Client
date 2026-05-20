@@ -13,9 +13,11 @@ import {
   Info,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function FacilityCard({ facility }) {
+  console.log(facility)
   const [selectedSlots, setSelectedSlots] = useState([]);
 
   const {
@@ -32,7 +34,7 @@ export default function FacilityCard({ facility }) {
     booking_count,
     imageUrl,
   } = facility;
-
+  console.log("imageUrl:", imageUrl);
   const toggleSlot = (slot) =>
     setSelectedSlots((prev) =>
       prev.includes(slot) ? prev.filter((s) => s !== slot) : [...prev, slot],
@@ -45,12 +47,12 @@ export default function FacilityCard({ facility }) {
       {" "}
       <Card className="w-full max-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
         {/* ── Hero image ── */}
-        <div className="relative h-44  overflow-hidden flex items-center justify-center">
+        <div className="relative h-44 overflow-hidden">
           {imageUrl && (
-            <img
+            <Image
               src={imageUrl}
               alt={facility_name}
-              className="absolute inset-0 w-full h-full object-cover "
+              fill className="absolute inset-0 w-full h-full object-cover z-0"
             />
           )}
 
@@ -61,7 +63,7 @@ export default function FacilityCard({ facility }) {
             </span>
           </div>
 
-    
+
           <Badge className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm text-white border-white/30 text-[10px] uppercase tracking-widest z-[1]">
             {sports_type}
           </Badge>
@@ -141,11 +143,10 @@ export default function FacilityCard({ facility }) {
                   <button
                     key={slot}
                     onClick={() => toggleSlot(slot)}
-                    className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${
-                      selectedSlots.includes(slot)
+                    className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${selectedSlots.includes(slot)
                         ? "bg-emerald-700 text-white border-emerald-700"
                         : "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
-                    }`}
+                      }`}
                   >
                     {slot}
                   </button>
