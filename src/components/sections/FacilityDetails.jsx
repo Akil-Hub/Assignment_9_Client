@@ -16,6 +16,9 @@ import {
   Layers,
 } from "lucide-react";
 import { DateField, Label } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SPORT_ICONS = {
   Football: "⚽",
@@ -32,11 +35,14 @@ const SLOT_LABELS = {
 };
 
 export default function FacilityDetails({ facility }) {
+  const router = useRouter()
   if (!facility) return <p className="mt-30">Loading...</p>;
 
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [bookingDate, setBookingDate] = useState(null);
-console.log(new Date(bookingDate).toLocaleDateString())
+
+  const { data: session } = authClient.useSession();
+  console.log('this is the user sessioin form navbar',session);
   const {
     _id,
     id,
@@ -51,10 +57,8 @@ console.log(new Date(bookingDate).toLocaleDateString())
     description,
     owner_email,
     booking_count,
-    image,
+    imageUrl,
   } = facility;
-  console.log(available_slots);
-
   const slots = Array.isArray(available_slots)
     ? available_slots
     : typeof available_slots === "string"
@@ -68,20 +72,49 @@ console.log(new Date(bookingDate).toLocaleDateString())
   const popularityPct = Math.min(100, Math.round((booking_count / 200) * 100));
   const totalCost = selectedSlots.length * price_per_hour;
 
-  const handleBook = () => {
-    if (!selectedSlots.length) return;
-    // navigate(`/facilities/${_id}/book`, { state: { facility, selectedSlots } });
+  const handleBook = async () => {
+    console.log('handle book button is clicked')
+    const bookingData = {
+      userId: session?.user?.id,
+      userName: session?.user?.name,
+
+      facility_Id: _id,
+      facility_name,
+      sports_type,
+      facility_type,
+
+      description, 
+      owner_email,
+      imageUrl,
+      location,
+      bookingDate: new Date().toLocaleString(),
+      selectedSlots
+    };
+
+    const res = await fetch("http://localhost:5000/myBookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    });
+    const data = await res.json()
+
+    if(data){
+      toast.success('Facility Booked Successfully.')
+      router.push('/myBookings')
+    }
   };
 
   return (
     <div className="min-h-screen bg-background mt-20">
       {/* ── Hero ── */}
       <div className="relative h-64 bg-gradient-to-br from-emerald-950 via-emerald-800 to-teal-500 overflow-hidden flex items-end">
-        {image && (
+        {imageUrl && (
           <img
-            src={image}
+            src={imageUrl}
             alt={facility_name}
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
+            className="absolute inset-0 w-full h-full object-cover "
           />
         )}
 
@@ -110,7 +143,7 @@ console.log(new Date(bookingDate).toLocaleDateString())
           <h1 className="text-4xl font-black tracking-tight text-white leading-none">
             {facility_name}
           </h1>
-          <p className="text-white/70 text-sm mt-1.5 font-medium">
+          <p className="text-white text-lg mt-1.5 font-bold">
             {name} · {id} · {facility_type}
           </p>
         </div>
@@ -381,7 +414,17 @@ console.log(new Date(bookingDate).toLocaleDateString())
             onClick={handleBook}
           >
             <CalendarCheck size={16} className="mr-2" />
-            {(selectedSlots.length && bookingDate)
+            {selectedSlots.length && bookingDate
+              ? "Confirm booking →"
+              : "Select a slot to book"}
+          </Button>
+          <Button
+            className="w-full bg-emerald-700 h-20 mt-5 text-2xl hover:bg-emerald-800 text-white font-bold"
+            disabled={!bookingDate}
+            onClick={handleBook}
+          >
+            <CalendarCheck size={16} className="mr-2" />
+            {selectedSlots.length && bookingDate
               ? "Confirm booking →"
               : "Select a slot to book"}
           </Button>

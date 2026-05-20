@@ -14,7 +14,6 @@ const Navbar = () => {
 
   const { data: session  } = authClient.useSession();
   console.log(session)
-  console.log(session?.user?.imageURL);
 
   return (
 
