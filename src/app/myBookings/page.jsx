@@ -9,28 +9,20 @@ import { headers } from "next/headers";
 const demoImage = '/badminton2.jpg'
 const MyBookingsPage = async () => {
 
-// const { data, error } = await authClient.token()
-// if (error) {
-//   console.log(error)
-// }
-// if (data) {
-//   const jwtToken = data.token
-// console.log('token is ',jwtToken)
- 
-// }
 
 const {token} = await auth.api.getToken({
   headers: await headers()
 })
 
 console.log(token)
-  const res = await fetch("http://localhost:5000/myBookings",{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`,{
     headers:{
       authorization: `Bearer ${token}`
     }
   });
 
   const bookingList = await res.json();
+  console.log(bookingList)
 
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-10">

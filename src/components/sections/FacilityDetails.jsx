@@ -45,7 +45,7 @@ export default function FacilityDetails({ facility }) {
   const [bookingDate, setBookingDate] = useState(null);
 
   const { data: session } = authClient.useSession();
-  console.log('this is the user sessioin form navbar',session);
+  console.log('this is the user sessioin form navbar', session);
   const {
     _id,
     id,
@@ -75,7 +75,7 @@ export default function FacilityDetails({ facility }) {
   const popularityPct = Math.min(100, Math.round((booking_count / 200) * 100));
   const totalCost = selectedSlots.length * price_per_hour;
 
- 
+
 
 
   // function for booking
@@ -90,7 +90,7 @@ export default function FacilityDetails({ facility }) {
       sports_type,
       facility_type,
 
-      description, 
+      description,
       owner_email,
       imageUrl,
       location,
@@ -99,7 +99,7 @@ export default function FacilityDetails({ facility }) {
     };
     console.log(imageUrl)
 
-    const res = await fetch("http://localhost:5000/myBookings", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -108,7 +108,7 @@ export default function FacilityDetails({ facility }) {
     });
     const data = await res.json()
 
-    if(data){
+    if (data) {
       toast.success('Facility Booked Successfully.')
       router.push('/myBookings')
     }
@@ -288,11 +288,10 @@ export default function FacilityDetails({ facility }) {
                   <button
                     key={slot}
                     onClick={() => toggleSlot(slot)}
-                    className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-150 cursor-pointer w-full ${
-                      isSelected
+                    className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-150 cursor-pointer w-full ${isSelected
                         ? "bg-emerald-700 border-emerald-700 text-white"
                         : "bg-emerald-50 border-emerald-200 text-emerald-900 hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
-                    }`}
+                      }`}
                   >
                     <Clock
                       size={15}
@@ -352,11 +351,10 @@ export default function FacilityDetails({ facility }) {
                       <button
                         key={slot}
                         onClick={() => toggleSlot(slot)}
-                        className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${
-                          selectedSlots.includes(slot)
+                        className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all duration-150 cursor-pointer ${selectedSlots.includes(slot)
                             ? "bg-emerald-700 text-white border-emerald-700"
                             : "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
-                        }`}
+                          }`}
                       >
                         {slot}
                       </button>
@@ -426,25 +424,25 @@ export default function FacilityDetails({ facility }) {
               ? "Confirm booking →"
               : "Select a slot to book"}
           </Button>
-       {
-        session?.user?.email === owner_email  &&    <RemoveFacilityDialog
-        id={_id}
-        facilityName={facility_name}
-          
+          {
+            session?.user?.email === owner_email && <RemoveFacilityDialog
+              id={_id}
+              facilityName={facility_name}
 
-          
-          />
-           
-       }
-       {
-        session?.user?.email === owner_email  &&    <UpdateForm
-       facility={facility}
-          
 
-          
-          />
-           
-       }
+
+            />
+
+          }
+          {
+            session?.user?.email === owner_email && <UpdateForm
+              facility={facility}
+
+
+
+            />
+
+          }
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export function RemoveFacilityDialog({ id, facilityName ,className}) {
           console.log(error)
         }
         const token = tokenData.token
-    const res = await fetch(`http://localhost:5000/allFacilities/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities/${id}`, {
       method: "DELETE",
       headers:{
         authorization:`Bearer ${token}`

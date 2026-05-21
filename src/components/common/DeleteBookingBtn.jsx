@@ -32,7 +32,7 @@ export function DeleteBookingBtn({ id, facilityName }) {
       console.log(error)
     }
     const token = tokenData.token
-    const res = await fetch(`http://localhost:5000/myBookings/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${token}`

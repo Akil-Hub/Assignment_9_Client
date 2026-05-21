@@ -12,7 +12,7 @@ const OwnerFacilitiesPage = async () => {
 
   const { id } = session?.user;
 
-  const res = await fetch(`http://localhost:5000/allFacilities`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`);
   const facilities = await res.json();
 
   const myFacilities = facilities.filter(
