@@ -27,9 +27,10 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { RemoveFacilityDialog } from "@/components/common/RemoveFacilityDialog";
 import { UpdateForm } from "@/components/common/UpdateForm";
+import { FaBars } from "react-icons/fa";
 
 const SPORT_ICONS = {
-  Football:   <Dribbble   size={20} />,
+  Football:   <FaBars   size={20} />,
   Basketball: <CircleDot  size={20} />,
   Cricket:    <Activity   size={20} />,
   Tennis:     <Zap        size={20} />,
