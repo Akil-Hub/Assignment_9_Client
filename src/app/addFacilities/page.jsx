@@ -51,6 +51,7 @@ export function AddFacilityPage() {
     console.log(data)
 
     router.push('/allFacilities')
+    router.refresh()
     toast.success("Facility added successfully.")
 
   };

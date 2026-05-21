@@ -3,7 +3,7 @@ import FacilityCard from '@/components/common/FacilityCard'
 
 const allFacilities = async () => {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`,{cache:"not-store"})
   const facilities = await res.json()
   console.log(facilities)
 
