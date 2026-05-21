@@ -35,7 +35,6 @@ const MainForm = ({onSubmit,inputClass,ownerEmail}) => {
             <FieldError />
           </TextField>
 
- {/* Facility Image */}
           <TextField required name="imageUrl">
             <Label className="text-gray-800 dark:text-gray-200">
               Facility Image URL
@@ -52,7 +51,6 @@ const MainForm = ({onSubmit,inputClass,ownerEmail}) => {
             <FieldError />
           </TextField>
 
-          {/* Facility Type */}
           <TextField required name="facility_type">
             <Label className="text-gray-800 dark:text-gray-200">
               Facility Type
@@ -70,7 +68,7 @@ const MainForm = ({onSubmit,inputClass,ownerEmail}) => {
             <FieldError />
           </TextField>
 
-          {/* Location */}
+      
           <TextField required name="location">
             <Label className="text-gray-800 dark:text-gray-200">
               Location

@@ -65,12 +65,10 @@ const OwnerFacilitiesPage = async () => {
               key={facility._id}
               className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-green-400 dark:hover:border-green-700 transition-colors duration-200"
             >
-              {/* Icon Box */}
               <div className="w-14 h-14 rounded-xl bg-green-50 dark:bg-green-950 flex items-center justify-center shrink-0">
                 <span className="text-2xl">🏟️</span>
               </div>
 
-              {/* Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <h2 className="text-base font-semibold text-gray-900 dark:text-white truncate">
@@ -92,7 +90,7 @@ const OwnerFacilitiesPage = async () => {
                   </span>
                   <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
                     <Clock size={12} />
-                    ৳{facility.price_per_hour}/hr
+                    ${facility.price_per_hour}/hr
                   </span>
                   <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
                     <Tag size={12} />

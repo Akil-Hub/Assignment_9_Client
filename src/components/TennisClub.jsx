@@ -7,14 +7,11 @@ export default function TennisClub() {
     <section className="wrapper py-16 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         
-        {/* Left - Image Grid */}
 <div className="grid grid-cols-2 gap-3 h-[500px]">
-  {/* Left - one big image */}
   <div className="relative rounded-lg overflow-hidden">
     <Image fill src="/tennis/tennis1.png" alt="tennis" className="object-cover rounded-lg  hover:scale-105 transition-all duration-500" />
   </div>
 
-  {/* Right - two small images stacked */}
   <div className="flex flex-col gap-3">
     <div className="relative flex-1 rounded-lg overflow-hidden">
       <Image fill src="/tennis/tennis2.png" alt="tennis" className="object-cover rounded-lg  hover:scale-105 transition-all duration-500" />
@@ -24,7 +21,6 @@ export default function TennisClub() {
     </div>
   </div>
 </div>
-        {/* Right - Text Content */}
         <div className="flex flex-col gap-5">
           <p className="text-primary font-semibold uppercase tracking-widest text-sm">
             World Class Facilities
@@ -39,10 +35,10 @@ export default function TennisClub() {
             everything you need to elevate your game.
           </p>
           <ul className="flex flex-col gap-2 text-muted-foreground">
-            <li className="flex items-center gap-2">✅ 10+ Professional Courts</li>
-            <li className="flex items-center gap-2">✅ Expert Coaching Staff</li>
-            <li className="flex items-center gap-2">✅ Easy Online Booking</li>
-            <li className="flex items-center gap-2">✅ Open 7 Days a Week</li>
+            <li className="flex items-center gap-2"> 10+ Professional Courts</li>
+            <li className="flex items-center gap-2"> Expert Coaching Staff</li>
+            <li className="flex items-center gap-2"> Easy Online Booking</li>
+            <li className="flex items-center gap-2"> Open 7 Days a Week</li>
           </ul>
           <div className="flex gap-4 mt-2">
             <Button size="lg">Book a Court</Button>
