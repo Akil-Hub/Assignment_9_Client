@@ -9,6 +9,22 @@ select {
   color: var(--foreground);
   background-color: transparent;
 }
+input,
+textarea,
+select {
+  color: white !important;
+  background-color: transparent;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important; 
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: white !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
 
 input::placeholder,
 textarea::placeholder {
