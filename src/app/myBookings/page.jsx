@@ -23,6 +23,8 @@ const {token} = await auth.api.getToken({
   });
 
   const allBooking = await res.json();
+  console.log(allBooking)
+
   const bookingList = allBooking.filter(list=>list.userId===session?.user?.id)
   console.log(bookingList)
 
