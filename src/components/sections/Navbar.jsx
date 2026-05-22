@@ -33,15 +33,15 @@ const Navbar = () => {
 
   return (
 
-    <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/10 backdrop-blur-lg ">
+    <section className="fixed top-0 left-0 z-50 w-full  border-separator bg-white/20 backdrop-blur-lg ">
       <nav className=" wrapper">
-        <header className="flex h-14 items-center justify-between px-6 font-semibold ">
+        <header className="flex h-14 items-center justify-between px-6 font-semibold  ">
           <div className="flex items-center gap-4">
             <div className="text-2xl font-bold italic">
               Sport<span className="text-green-500 ">Nest</span>
             </div>
           </div>
-          <NavLinks className={"hidden md:flex"} />
+          <NavLinks className={"hidden md:flex dark:text-gray-300"} />
 
           <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />

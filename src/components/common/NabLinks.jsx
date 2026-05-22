@@ -24,7 +24,7 @@ const NavLinks = ({ isMenuOpen, className ,setIsMenuOpen}) => {
           key={idx}
           className={pathname === item.path ? " border-primary text-green-400" : "dark:hover:text-green-400"}
         >
-          <Link  onClick={()=>setIsMenuOpen(!isMenuOpen)} href={item.path}>{item.title}</Link>
+          <Link   onClick={()=>setIsMenuOpen(!isMenuOpen)} href={item.path}>{item.title}</Link>
         </li>
       ))}
       {isMenuOpen && <ThemeToggler />}

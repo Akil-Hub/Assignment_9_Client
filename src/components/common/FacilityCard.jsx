@@ -45,7 +45,7 @@ export default function FacilityCard({ facility }) {
   return (
     <Link href={`/allFacilities/${_id}`}>
       {" "}
-      <Card className="w-full max-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <Card className="w-full min-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ">
         {/* ── Hero image ── */}
         <div className="relative h-44 overflow-hidden">
           {imageUrl && (
