@@ -91,9 +91,9 @@ export default function FacilityDetails({ facility }) {
         if (error) {
           console.log(error)
         }
-        const token = tokenData.token
+        const token = tokenData?.token
     const bookingData = {
-      userId: session?.user?.id,
+      // userId: session?.user?.id,
       userName: session?.user?.name,
       facility_Id: _id,
       facility_name,

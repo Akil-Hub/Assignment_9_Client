@@ -16,12 +16,14 @@ const {token} = await auth.api.getToken({
   headers: await headers()
 })
 
-// ,{
-//     headers:{
-//       authorization: `Bearer ${token}`
-//     }
-//   }
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`);
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`,
+  {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  }
+)
 
   const bookingList = await res.json();
   // console.log(allBooking)
