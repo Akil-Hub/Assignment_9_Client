@@ -110,8 +110,7 @@ export default function FacilityDetails({ facility }) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`, {
       method: "POST",
       headers: { "content-type": "application/json",
-         authorization: `Bearer ${token}`,
-         userId:session?.user?.id
+         authorization: `Bearer ${token}`
        },
       body: JSON.stringify(bookingData),
     });
