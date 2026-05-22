@@ -40,7 +40,7 @@ const Navbar = () => {
               Sport<span className="text-green-500 ">Nest</span>
             </div>
           </div>
-          <NavLinks className={"hidden md:flex dark:text-gray-300"}setIsMenuOpen={setIsMenuOpen} />
+          <NavLinks className={"hidden md:flex dark:text-gray-300"} />
 
           <div className="rightNav flex items-center gap-2">
             <ThemeToggler className={"hidden md:flex text-white]:"} />

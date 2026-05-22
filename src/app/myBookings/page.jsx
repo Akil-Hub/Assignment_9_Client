@@ -18,19 +18,13 @@ const {token} = await auth.api.getToken({
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`,{
     headers:{
-      authorization: `Bearer ${token}`,
-      userId: session?.user?.id 
+      authorization: `Bearer ${token}`
     }
   });
 
-  const bookingList = await res.json();
-  console.log(bookingList.length)
-  if (!res.ok) {
-  toast.error(data.message) 
-  return
-}
-
-
+  const allBooking = await res.json();
+  const bookingList = allBooking.filter(list=>list.userId===session?.user?.id)
+  console.log(bookingList)
 
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-10">

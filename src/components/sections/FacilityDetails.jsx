@@ -88,7 +88,6 @@ export default function FacilityDetails({ facility }) {
 
   const handleBook = async () => {
         const { data: tokenData, error } = await authClient.token()
-
         if (error) {
           console.log(error)
         }
@@ -117,7 +116,6 @@ export default function FacilityDetails({ facility }) {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
-    console.log('dfasdfsdafsadfsadfdata',data)
 
     if (data) {
       toast.success("Facility Booked Successfully.");
