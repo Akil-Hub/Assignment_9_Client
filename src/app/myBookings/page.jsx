@@ -23,11 +23,19 @@ const {token} = await auth.api.getToken({
 //   }
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`);
 
+<<<<<<< HEAD
   const bookingList = await res.json();
   // console.log(allBooking)
   // const bookingList = allBooking.filter(list=>list.userId===session?.user?.id)
   // console.log(bookingList)
   // console.log(bookingList.length)
+=======
+  const allBooking = await res.json();
+  console.log(allBooking)
+
+  const bookingList = allBooking.filter(list=>list.userId===session?.user?.id)
+  console.log(bookingList)
+>>>>>>> 8b6dfad00c67d23a3c57ad3f4ff670379b01ce22
 
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-10">
