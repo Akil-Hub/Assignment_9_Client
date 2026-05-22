@@ -6,5 +6,14 @@ export const authClient = createAuthClient({
 plugins:[
     jwtClient()
 ]
+
+
 })
-export const { signIn, signUp, useSession,logOut } = authClient
+
+export const handleGoogleLogin = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};
+
+export const { signIn, signUp, useSession,signOut } = authClient

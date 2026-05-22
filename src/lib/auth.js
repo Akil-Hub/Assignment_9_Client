@@ -10,6 +10,14 @@ await client.connect();
 const db = client.db();
 
 export const auth = betterAuth({
+   baseURL: process.env.BETTER_AUTH_URL, 
+
+  socialProviders: {
+        google: { 
+            clientId: process.env.GOOGLE_CLIENT_ID, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
+        }, 
+    },
   session:{
     cookieCache:{
       enabled:true,

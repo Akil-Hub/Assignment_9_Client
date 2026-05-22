@@ -11,10 +11,11 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
+import { authClient, handleGoogleLogin } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { FaGoogle } from "react-icons/fa";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -167,6 +168,13 @@ const RegisterPage = () => {
                     Sign Up
                   </>
                 )}
+              </Button>
+              <Button
+              onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-xl px-6 py-3 text-sm transition-all duration-200 shadow-lg shadow-green-900/30"
+              >
+               
+               <FaGoogle/> Continue With Google
               </Button>
 
               <Button
