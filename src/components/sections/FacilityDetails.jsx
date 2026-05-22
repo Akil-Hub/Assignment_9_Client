@@ -51,6 +51,8 @@ export default function FacilityDetails({ facility }) {
 
   if (!facility) return <p className="mt-30">Loading...</p>;
 
+
+  
   const { data: session } = authClient.useSession();
 
   const {
@@ -85,6 +87,11 @@ export default function FacilityDetails({ facility }) {
   const totalCost = selectedSlots.length * price_per_hour;
 
   const handleBook = async () => {
+        const { data: tokenData, error } = await authClient.token()
+        if (error) {
+          console.log(error)
+        }
+        const token = tokenData.token
     const bookingData = {
       userId: session?.user?.id,
       userName: session?.user?.name,
@@ -102,7 +109,10 @@ export default function FacilityDetails({ facility }) {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json",
+         authorization: `Bearer ${token}`,
+         userId:session?.user?.id
+       },
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();

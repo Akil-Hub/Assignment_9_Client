@@ -9,19 +9,21 @@ import { headers } from "next/headers";
 const demoImage = '/badminton2.jpg'
 const MyBookingsPage = async () => {
 
-
+const session = await auth.api.getSession({
+    headers: await headers() 
+})
 const {token} = await auth.api.getToken({
   headers: await headers()
 })
 
-console.log(token)
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/myBookings`,{
     headers:{
       authorization: `Bearer ${token}`
     }
   });
 
-  const bookingList = await res.json();
+  const allBooking = await res.json();
+  const bookingList = allBooking.filter(list=>list.userId===session?.user?.id)
   console.log(bookingList)
 
   return (

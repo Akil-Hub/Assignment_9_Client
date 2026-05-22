@@ -17,7 +17,6 @@ import Image from "next/image";
 
 
 export default function FacilityCard({ facility }) {
-  console.log(facility)
   const [selectedSlots, setSelectedSlots] = useState([]);
 
   const {
@@ -34,7 +33,6 @@ export default function FacilityCard({ facility }) {
     booking_count,
     imageUrl,
   } = facility;
-  console.log("imageUrl:", imageUrl);
   const toggleSlot = (slot) =>
     setSelectedSlots((prev) =>
       prev.includes(slot) ? prev.filter((s) => s !== slot) : [...prev, slot],

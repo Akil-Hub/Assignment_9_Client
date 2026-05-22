@@ -16,7 +16,6 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { data: session  } = authClient.useSession();
-  console.log(session)
 
   const handleSignOut  = async (params) => {
     await authClient.signOut({
