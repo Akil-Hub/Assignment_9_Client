@@ -1,9 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RemoveFacilityDialog } from "@/components/common/RemoveFacilityDialog";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { Pencil, MapPin, Clock, Tag } from "lucide-react";
+import {
+  Pencil,
+  MapPin,
+  Clock,
+  Tag,
+  Plus,
+  Building2,
+  BadgeCheck,
+} from "lucide-react";
 
 const OwnerFacilitiesPage = async () => {
   const session = await auth.api.getSession({
@@ -12,7 +21,13 @@ const OwnerFacilitiesPage = async () => {
 
   const { id } = session?.user;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`,
+    {
+      cache: "no-store",
+    }
+  );
+
   const facilities = await res.json();
 
   const myFacilities = facilities.filter(
@@ -20,38 +35,55 @@ const OwnerFacilitiesPage = async () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-4xl mx-auto mt-20">
+    <div className="min-h-screen bg-gray-950 px-4 py-10">
+      <div className="max-w-5xl mx-auto mt-20">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              My Facilities
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              {myFacilities.length} facilit{myFacilities.length === 1 ? "y" : "ies"} listed
-            </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-10">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+              <Building2 className="w-5 h-5 text-green-500" />
+            </div>
+
+            <div>
+              <h1 className="text-2xl font-bold text-white tracking-tight">
+                My Facilities
+              </h1>
+
+              <p className="text-sm text-gray-500 mt-1">
+                {myFacilities.length} facilit
+                {myFacilities.length === 1 ? "y" : "ies"} listed
+              </p>
+            </div>
           </div>
+
           <Link href="/addFacilities">
-            <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white rounded-lg px-5 py-2 text-sm font-medium">
-              + Add Facility
+            <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-500 text-white rounded-xl px-5 py-2 text-sm font-medium shadow-lg shadow-green-900/30">
+              <Plus className="w-4 h-4 mr-1" />
+              Add Facility
             </Button>
           </Link>
         </div>
 
         {/* Empty State */}
         {myFacilities.length === 0 && (
-          <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl py-16 px-6 text-center bg-white dark:bg-gray-900">
-            <div className="text-4xl mb-4">🏟️</div>
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
+          <div className="flex flex-col items-center justify-center border border-dashed border-gray-800 rounded-3xl py-20 px-6 text-center bg-gray-900/70 backdrop-blur-xl">
+            <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-5">
+              <Building2 className="w-8 h-8 text-green-500" />
+            </div>
+
+            <h2 className="text-xl font-semibold text-white mb-2">
               No facilities yet
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-              Start by adding your first sports facility.
+
+            <p className="text-sm text-gray-500 mb-6 max-w-sm">
+              Start by adding your first sports facility and manage bookings
+              easily.
             </p>
+
             <Link href="/addFacilities">
-              <Button className="bg-green-600 hover:bg-green-700 text-white text-sm px-5 py-2 rounded-lg">
+              <Button className="bg-green-600 hover:bg-green-500 text-white text-sm px-5 py-2 rounded-xl">
+                <Plus className="w-4 h-4 mr-1" />
                 Add Facility
               </Button>
             </Link>
@@ -59,68 +91,111 @@ const OwnerFacilitiesPage = async () => {
         )}
 
         {/* Facility Cards */}
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 gap-6">
           {myFacilities.map((facility) => (
             <div
               key={facility._id}
-              className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-green-400 dark:hover:border-green-700 transition-colors duration-200"
+              className="group overflow-hidden bg-gray-900/80 border border-gray-800 rounded-3xl hover:border-green-500/40 transition-all duration-300"
             >
-              <div className="w-14 h-14 rounded-xl bg-green-50 dark:bg-green-950 flex items-center justify-center shrink-0">
-                <span className="text-2xl">🏟️</span>
-              </div>
+              <div className="flex flex-col lg:flex-row">
 
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <h2 className="text-base font-semibold text-gray-900 dark:text-white truncate">
-                    {facility.facility_name}
-                  </h2>
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300">
-                    Active
-                  </span>
+                {/* Facility Image */}
+                <div className="relative lg:w-80 w-full h-80 overflow-hidden bg-gray-800">
+                  {facility.imageUrl ? (
+                    <Image
+                      src={facility.imageUrl}
+                      alt={facility.facility_name}
+                      fill
+                      unoptimized
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <Building2 className="w-12 h-12 text-gray-600" />
+                    </div>
+                  )}
                 </div>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mb-3">
-                  {facility.description}
-                </p>
+                {/* Content */}
+                <div className="flex-1 p-6 flex flex-col justify-between">
 
-                <div className="flex flex-wrap gap-4">
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    <MapPin size={12} />
-                    {facility.location}
-                  </span>
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    <Clock size={12} />
-                    ${facility.price_per_hour}/hr
-                  </span>
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    <Tag size={12} />
-                    {facility.category}
-                  </span>
+                  <div>
+                    {/* Top */}
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <h2 className="text-xl font-semibold text-white">
+                        {facility.facility_name}
+                      </h2>
+
+                      <span className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">
+                        <BadgeCheck className="w-3 h-3" />
+                        Active
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-gray-400 leading-relaxed mb-6 line-clamp-2">
+                      {facility.description}
+                    </p>
+
+                    {/* Info */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <MapPin className="w-4 h-4 text-green-500" />
+                        {facility.location}
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <Clock className="w-4 h-4 text-green-500" />
+                        ${facility.price_per_hour}/hr
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <Tag className="w-4 h-4 text-green-500" />
+                        {facility.facility_type}
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <Building2 className="w-4 h-4 text-green-500" />
+                        Capacity: {facility.capacity}
+                      </div>
+
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className=" gap-3 mt-6">
+
+                    <Link
+                      href={`/manageFacilities/${facility._id}`}
+                    >
+                      <Button className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-200 rounded-xl px-4 py-2 text-sm">
+                        <Pencil className="w-4 h-4 mr-2" />
+                        Details
+                      </Button>
+                    </Link>
+
+                    <RemoveFacilityDialog
+                      id={facility._id}
+                      facilityName={facility.facility_name}
+                      className="
+                        w-full
+                        h-10
+                        text-xs
+                        rounded-xl
+                        border
+                        border-red-500/20
+                        bg-red-500/10
+                        text-red-400
+                        hover:bg-red-500/20
+                        transition-all
+                        px-3
+                      "
+                    />
+
+                  </div>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex sm:flex-col gap-2 shrink-0">
-                <Link href={`/manageFacilities/${facility._id}`} className="flex-1 sm:flex-none">
-                  <Button
-                    
-                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-1.5 h-8 rounded-lg border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    <Pencil size={13} />
-                    See Details
-                  </Button>
-                </Link>
-
-                <div className="flex-1 sm:flex-none">
-                  <RemoveFacilityDialog
-                  className={'w-35 h-12 mt-5 bg-red-700 text-white text-xs rounded-2xl '}
-                    id={facility._id}
-                    facilityName={facility.facility_name}
-                    triggerClassName="w-full sm:w-auto flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-1.5 h-8 rounded-lg border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
-                  />
-                </div>
-              </div>
-
             </div>
           ))}
         </div>

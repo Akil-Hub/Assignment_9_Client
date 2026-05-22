@@ -65,7 +65,7 @@ const handleSportChange = (value) => {
           onKeyDown={handleKeyDown}
           className='flex-1'
         />
-        <Button onClick={handleSearch} onValueChange={handleSportChange}>Search</Button>
+        <Button onClick={handleSearch} >Search</Button>
 
         <Select value={sport} onValueChange={handleSportChange}>
           <SelectTrigger className='w-full sm:w-48'>

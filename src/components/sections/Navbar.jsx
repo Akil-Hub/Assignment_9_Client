@@ -80,7 +80,7 @@ const Navbar = () => {
         {/* mobile menu items */}
         {isMenuOpen && (
           <div className="border-t border-separator md:hidden  py-5">
-            <NavLinks isMenuOpen={isMenuOpen} />
+            <NavLinks isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
           </div>
         )}
       </nav>
