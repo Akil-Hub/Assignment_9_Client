@@ -46,7 +46,11 @@ const AllFacilities = () => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleSearch()
   }
-
+const handleSportChange = (value) => {
+  setSearch('')
+  setSearchQuery('')
+  setSport(value)
+}
   return (
     <section className='mt-20 wrapper'>
       <h1 className='text-center mt-5 text-4xl font-semibold italic'>
@@ -61,7 +65,7 @@ const AllFacilities = () => {
           onKeyDown={handleKeyDown}
           className='flex-1'
         />
-        <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={handleSearch} onValueChange={handleSportChange}>Search</Button>
 
         <Select value={sport} onValueChange={setSport}>
           <SelectTrigger className='w-full sm:w-48'>
