@@ -67,7 +67,7 @@ const handleSportChange = (value) => {
         />
         <Button onClick={handleSearch} onValueChange={handleSportChange}>Search</Button>
 
-        <Select value={sport} onValueChange={setSport}>
+        <Select value={sport} onValueChange={handleSportChange}>
           <SelectTrigger className='w-full sm:w-48'>
             <SelectValue placeholder='Filter by sport' />
           </SelectTrigger>
