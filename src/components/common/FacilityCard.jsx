@@ -14,10 +14,24 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 export default function FacilityCard({ facility }) {
   const [selectedSlots, setSelectedSlots] = useState([]);
+    const { data: session  } = authClient.useSession();
+  
+
+  const router  = useRouter()
+  const handleRedirect= () => {
+    if (session?.user) {
+      router.push(`/allFacilities/${_id}`)
+    }else{
+       router.push('/signIn')
+    }
+   
+  };
 
   const {
     _id,
@@ -41,7 +55,7 @@ export default function FacilityCard({ facility }) {
   const popularityPct = Math.min(100, Math.round((booking_count / 200) * 100));
 
   return (
-    <Link href={`/allFacilities/${_id}`}>
+    <section onClick={handleRedirect}>
       {" "}
       <Card className="w-full min-w-sm overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ">
         {/* ── Hero image ── */}
@@ -168,6 +182,6 @@ export default function FacilityCard({ facility }) {
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </section>
   );
 }

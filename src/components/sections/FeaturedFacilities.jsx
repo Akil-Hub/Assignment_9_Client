@@ -20,10 +20,16 @@ import {
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 
 
 function getBadge(count) {
+
+  
+
+
   const n = Number(count);
   if (n >= 100) return { label: "Top Rated", style: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300" };
   if (n >= 50) return { label: "Most Booked", style: "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300" };
@@ -43,12 +49,17 @@ const FeaturedFacilities = () => {
   const [facilities, setFacilities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+ const { data: session  } = authClient.useSession();
+  
+
+  const router  = useRouter()
+
 
   useEffect(() => {
     const fetchFacilities = async () => {
       try {
         setLoading(true);
-        const res = await fetch("https://assignment-9-server-roan.vercel.app/allFacilities");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`);
 
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
@@ -67,7 +78,15 @@ const FeaturedFacilities = () => {
     };
     fetchFacilities();
   }, []);
+  const handleRedirect= (id) => {
+    if (session?.user) {
+      router.push(`/allFacilities/${id}`)
+    }else{
+       router.push('/signIn')
 
+    }
+   
+  };
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto">
@@ -175,11 +194,11 @@ const FeaturedFacilities = () => {
                           </span>
                         )}
                       </div>
-                      <Link href={`/allFacilities/${facility._id}`}>
+                      <section onClick={()=>handleRedirect(facility._id)} >
                         <Button className="h-9 px-5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm">
                           Book Now
                         </Button>
-                      </Link>
+                      </section>
                     </div>
                   </div>
                 </div>
@@ -187,7 +206,6 @@ const FeaturedFacilities = () => {
             })}
         </div>
 
-        {/* View All */}
         {!loading && facilities.length > 0 && (
           <div className="flex justify-center mt-12">
             <Link href="/allFacilities">
